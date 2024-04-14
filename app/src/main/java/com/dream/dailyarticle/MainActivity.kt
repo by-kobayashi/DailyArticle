@@ -41,7 +41,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     val scope = remember { MainScope() }
     var test = ""
-    LaunchedEffect(null) {
+    LaunchedEffect(key1 = Unit) {
         scope.launch {
             val networkService = DailyArticleService.createDailyArticleService()
             val newsEntity = networkService.getArticle()
