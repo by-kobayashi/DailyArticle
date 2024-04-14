@@ -45,7 +45,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         scope.launch {
             val networkService = DailyArticleService.createDailyArticleService()
             val newsEntity = networkService.getArticle()
-            test = newsEntity
+            test = "newsEntity"
         }
     }
     Text(
