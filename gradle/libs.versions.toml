@@ -10,7 +10,9 @@ activityCompose = "1.8.2"
 composeBom = "2023.08.00"
 jsoupVsersion = "1.17.2"
 retrofitVsersion = "2.11.0"
-okHttpVsersion = "4.9.1"
+okHttpVsersion = "4.12.0"
+navigationAnimationVsersion = "0.33.0-alpha"
+adnroidRoomVersion = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,8 +28,13 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.1.1" }
 androidx-material-icon = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences" , version = "1.1.1"}
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "adnroidRoomVersion" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "adnroidRoomVersion" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version = "1.1.0-alpha13" }
+google-navigation-animation = { group = "com.google.accompanist", name = "accompanist-navigation-animation", version.ref = "navigationAnimationVsersion" }
 
 jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoupVsersion" }
 
