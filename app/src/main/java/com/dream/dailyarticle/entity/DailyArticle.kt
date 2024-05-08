@@ -7,6 +7,5 @@ data class DailyArticle(
     var content: Elements? = null,
     var title: String = "title",
     var author: String = "author",
-    var text: Spanned? = null,
-    var url: String? = null
+    var text: Spanned? = null
 )

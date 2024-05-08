@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun Main(
+fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     Box(modifier) {
@@ -18,5 +18,5 @@ fun Main(
 @Preview(name = "Main")
 @Composable
 private fun PreviewMain() {
-    Main()
+    MainScreen()
 }
