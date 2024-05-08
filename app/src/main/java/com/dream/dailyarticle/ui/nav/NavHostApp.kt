@@ -1,9 +1,11 @@
 package com.dream.dailyarticle.ui.nav
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Air
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -14,14 +16,20 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.dream.dailyarticle.R
+import com.dream.dailyarticle.ui.actions.HomeActions
 import com.dream.dailyarticle.ui.screen.HomeScreen
 import com.dream.dailyarticle.ui.screen.MainScreen
+import com.dream.dailyarticle.viewmodel.HomeViewModel
+import kotlinx.coroutines.launch
 
 
 /**
@@ -34,15 +42,28 @@ import com.dream.dailyarticle.ui.screen.MainScreen
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavHostApp() {
+fun NavHostApp(homeViewModel: HomeViewModel = viewModel()) {
     val bottomSheetState = rememberBottomSheetScaffoldState()
     val navController = rememberNavController()
+    val scope = rememberCoroutineScope()
     BottomSheetScaffold(
         topBar = {
             TopAppBar(
                 navigationIcon = {
                     Icon(
                         imageVector = Icons.Default.Air,
+                        contentDescription = null
+                    )
+                },
+                actions = {
+                    Icon(
+                        modifier = Modifier.padding(end = 15.dp)
+                            .clickable {
+                                scope.launch {
+                                    homeViewModel.dispatcher(HomeActions.LoadData)
+                                }
+                            },
+                        imageVector = Icons.Default.Refresh,
                         contentDescription = null
                     )
                 },

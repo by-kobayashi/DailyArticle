@@ -1,6 +1,6 @@
 package com.dream.dailyarticle.ui.state
 
-import org.jsoup.select.Elements
+import com.dream.dailyarticle.entity.DailyArticle
 
 /**
  * <p>@author: Kobayashi
@@ -12,6 +12,6 @@ import org.jsoup.select.Elements
  */
 sealed class HomeState {
     data object Loading : HomeState()
-    data class Success(val content: Elements?) : HomeState()
+    data class Success(val entity: DailyArticle?) : HomeState()
     data class Error(val error: String? = "加载失败！") : HomeState()
 }

@@ -9,5 +9,5 @@ package com.dream.dailyarticle.ui.actions
  * <p>@desc:
  */
 sealed class HomeActions {
-    data class OpenArticle(val url: String) : HomeActions()
+    data object LoadData : HomeActions()
 }
