@@ -1,14 +1,17 @@
 package com.dream.dailyarticle.ui.nav
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Air
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -18,6 +21,7 @@ import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -29,7 +33,6 @@ import com.dream.dailyarticle.ui.actions.HomeActions
 import com.dream.dailyarticle.ui.screen.HomeScreen
 import com.dream.dailyarticle.ui.screen.MainScreen
 import com.dream.dailyarticle.viewmodel.HomeViewModel
-import kotlinx.coroutines.launch
 
 
 /**
@@ -45,7 +48,6 @@ import kotlinx.coroutines.launch
 fun NavHostApp(homeViewModel: HomeViewModel = viewModel()) {
     val bottomSheetState = rememberBottomSheetScaffoldState()
     val navController = rememberNavController()
-    val scope = rememberCoroutineScope()
     BottomSheetScaffold(
         topBar = {
             TopAppBar(
@@ -56,16 +58,16 @@ fun NavHostApp(homeViewModel: HomeViewModel = viewModel()) {
                     )
                 },
                 actions = {
-                    Icon(
-                        modifier = Modifier.padding(end = 15.dp)
-                            .clickable {
-                                scope.launch {
-                                    homeViewModel.dispatcher(HomeActions.LoadData)
-                                }
-                            },
-                        imageVector = Icons.Default.Refresh,
-                        contentDescription = null
-                    )
+                    IconButton(modifier = Modifier.padding(end = 15.dp),
+                        onClick = {
+                            homeViewModel.dispatcher(HomeActions.LoadData)
+                        }) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh,
+                            contentDescription = null
+                        )
+                    }
+
                 },
                 title = { Text(stringResource(R.string.app_name)) },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -75,11 +77,11 @@ fun NavHostApp(homeViewModel: HomeViewModel = viewModel()) {
             )
         },
         sheetContent = {
-            Column {
+            Column(modifier = Modifier.width(IntrinsicSize.Max)) {
                 TextButton(onClick = {}) {
                     Text("one")
                 }
-                TextButton(onClick = {}) {
+                TextButton(modifier = Modifier.wrapContentWidth(), onClick = {}) {
                     Text("two")
 
                 }

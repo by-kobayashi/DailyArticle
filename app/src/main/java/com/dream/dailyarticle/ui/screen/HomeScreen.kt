@@ -1,5 +1,6 @@
 package com.dream.dailyarticle.ui.screen
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,10 +24,9 @@ import com.dream.dailyarticle.viewmodel.HomeViewModel
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel = viewModel()
 ) {
-    val  uiState = homeViewModel.uiState
+    val uiState = homeViewModel.uiState
     val scrollState = rememberScrollState()
     LaunchedEffect(Unit) {
         homeViewModel.dispatcher(HomeActions.LoadData)
@@ -42,6 +42,7 @@ fun HomeScreen(
                 uiState.error?.let { Text(it) }
             }
         }
+
         is HomeState.Loading -> {
             Column(
                 modifier = Modifier
@@ -52,41 +53,49 @@ fun HomeScreen(
                 CircularProgressIndicator()
             }
         }
+
         is HomeState.Success -> {
-            Column(
-                modifier = Modifier.fillMaxSize()
-                    .verticalScroll(state = scrollState),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                uiState.entity?.let {
-                    Text(
-                        text = it.title,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 30.sp,
-                    )
-                }
-                uiState.entity?.let {
-                    Text(
-                        modifier = Modifier
-                            .padding(vertical = 5.dp),
-                        text = it.author,
-                        fontWeight = FontWeight.Thin,
-                        fontSize = 16.sp,
-                    )
-                }
-                Text(
-                    modifier = Modifier
-                        .padding(5.dp),
-                    text = "${uiState.entity?.text}",
-                    fontWeight = FontWeight.Normal
-                )
-            }
+            SuccessLayout(scrollState, uiState)
         }
     }
 
 
+}
 
+@Composable
+private fun SuccessLayout(
+    scrollState: ScrollState,
+    uiState: HomeState.Success
+) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+            .verticalScroll(state = scrollState),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        uiState.entity?.title?.let {
+            Text(
+                text = it,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
+            )
+        }
+        uiState.entity?.author?.let {
+            Text(
+                modifier = Modifier
+                    .padding(vertical = 5.dp),
+                text = it,
+                fontWeight = FontWeight.Thin,
+                fontSize = 16.sp,
+            )
+        }
+        Text(
+            modifier = Modifier
+                .padding(5.dp),
+            text = "${uiState.entity?.text}",
+            fontWeight = FontWeight.Normal
+        )
+    }
 }
 
 @Preview(name = "Home")
