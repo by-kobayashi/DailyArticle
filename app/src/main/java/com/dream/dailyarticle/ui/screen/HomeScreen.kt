@@ -31,6 +31,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -127,7 +128,7 @@ fun HomeScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(strokeCap = StrokeCap.Round)
                 }
             }
 
@@ -170,7 +171,7 @@ private fun SuccessLayout(
         }
         Text(
             modifier = Modifier
-                .padding(5.dp),
+                .padding(15.dp),
             text = buildString { append(uiState.entity?.text) },
             fontWeight = FontWeight.Normal
         )
