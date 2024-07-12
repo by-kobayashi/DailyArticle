@@ -3,8 +3,6 @@ package com.dream.dailyarticle.ui.screen
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.text.Spanned
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.Air
@@ -41,8 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dream.dailyarticle.R
-import com.dream.dailyarticle.ui.actions.HomeActions
-import com.dream.dailyarticle.ui.state.HomeState
+import com.dream.dailyarticle.actions.HomeActions
+import com.dream.dailyarticle.state.HomeState
 import com.dream.dailyarticle.viewmodel.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,7 +82,10 @@ fun HomeScreen(
                             val clipboardManager =
                                 context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                             // 创建剪贴板数据
-                            val clipData = ClipData.newPlainText("DailyArticle", "${(uiState as HomeState.Success).entity?.title}\n${uiState.entity?.author}\n${uiState.entity?.text}")
+                            val clipData = ClipData.newPlainText(
+                                "DailyArticle",
+                                "${(uiState as HomeState.Success).entity?.title}\n${uiState.entity?.author}\n${uiState.entity?.text}"
+                            )
                             // 将数据放入剪贴板
                             clipboardManager.setPrimaryClip(clipData)
                             // 显示复制成功的提示
@@ -145,36 +147,40 @@ private fun SuccessLayout(
     uiState: HomeState.Success,
     it: Dp
 ) {
-    Column(
-        modifier = Modifier
-            .padding(top = it)
-            .fillMaxSize()
-            .verticalScroll(state = scrollState),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        uiState.entity?.title?.let {
-            Text(
-                text = it,
-                fontWeight = FontWeight.Bold,
-                fontSize = 30.sp,
-            )
-        }
-        uiState.entity?.author?.let {
+    SelectionContainer {
+        Column(
+            modifier = Modifier
+                .padding(top = it)
+                .fillMaxSize()
+                .verticalScroll(state = scrollState),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+
+            uiState.entity?.title?.let {
+                Text(
+                    text = it,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                )
+            }
+            uiState.entity?.author?.let {
+                Text(
+                    modifier = Modifier
+                        .padding(vertical = 5.dp),
+                    text = it,
+                    fontWeight = FontWeight.Thin,
+                    fontSize = 16.sp,
+                )
+            }
             Text(
                 modifier = Modifier
-                    .padding(vertical = 5.dp),
-                text = it,
-                fontWeight = FontWeight.Thin,
-                fontSize = 16.sp,
+                    .padding(15.dp),
+                text = buildString { append(uiState.entity?.text) },
+                fontWeight = FontWeight.Normal
             )
         }
-        Text(
-            modifier = Modifier
-                .padding(15.dp),
-            text = buildString { append(uiState.entity?.text) },
-            fontWeight = FontWeight.Normal
-        )
+
     }
 }
 

@@ -1,4 +1,4 @@
-package com.dream.dailyarticle.ui.nav
+package com.dream.dailyarticle.nav
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost

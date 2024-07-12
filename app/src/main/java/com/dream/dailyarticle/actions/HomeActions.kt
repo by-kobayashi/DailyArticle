@@ -1,4 +1,4 @@
-package com.dream.dailyarticle.ui.actions
+package com.dream.dailyarticle.actions
 
 /**
  * <p>@author: Kobayashi

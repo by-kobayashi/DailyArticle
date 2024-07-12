@@ -1,4 +1,4 @@
-package com.dream.dailyarticle.ui.state
+package com.dream.dailyarticle.state
 
 import com.dream.dailyarticle.entity.DailyArticle
 

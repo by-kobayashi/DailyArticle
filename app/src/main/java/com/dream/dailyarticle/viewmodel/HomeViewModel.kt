@@ -10,8 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.dream.dailyarticle.DailyArticleApp
 import com.dream.dailyarticle.constants.DailyArticleUri
 import com.dream.dailyarticle.entity.DailyArticle
-import com.dream.dailyarticle.ui.actions.HomeActions
-import com.dream.dailyarticle.ui.state.HomeState
+import com.dream.dailyarticle.actions.HomeActions
+import com.dream.dailyarticle.state.HomeState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
